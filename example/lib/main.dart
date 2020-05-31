@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                showNotification();
+                showLoadToast(text: 'Hello');
               },
               child: Center(child: Text('press here to show loader')),
             ),

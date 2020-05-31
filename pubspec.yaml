@@ -1,8 +1,8 @@
 name: ots
 description: A new Flutter package.
 version: 0.0.1
-author:
-homepage:
+author: Fayaz
+homepage: https://github.com/fayaz07/ots
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -22,7 +22,8 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   #
