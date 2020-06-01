@@ -4,10 +4,16 @@ import 'package:ots/ots.dart';
 void main() => runApp(
       MaterialApp(
         home: OTS(
+          /// pass your custom loader here
+          loader: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+          ),
           child: Home(),
         ),
       ),
     );
+
+final textStyle = TextStyle(color: Colors.white);
 
 class Home extends StatefulWidget {
   @override
@@ -33,7 +39,7 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 RaisedButton(
                   color: Colors.blue,
-                  child: Text('Show LoadToast'),
+                  child: Text('Show Notification', style: textStyle),
                   onPressed: () {
                     showNotification(
                       message: 'Hello, this is notification',
@@ -46,9 +52,14 @@ class _HomeState extends State<Home> {
                 ),
                 RaisedButton(
                   color: Colors.green,
-                  child: Text('LoadToast Success'),
-                  onPressed: () {
-//                    hideLoadToastWithSuccess();
+                  child: Text('Show Loader', style: textStyle),
+                  onPressed: () async {
+                    showLoader(
+                      isModal: true,
+                    );
+
+                    await Future.delayed(Duration(seconds: 3));
+                    hideLoader();
                   },
                 ),
                 RaisedButton(
