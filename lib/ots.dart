@@ -22,7 +22,9 @@ import 'package:flutter/widgets.dart'
         Center,
         Stack,
         ModalBarrier;
+import 'package:ots/widgets/network_state.dart';
 import 'widgets/notification.dart';
+import 'package:connectivity/connectivity.dart';
 
 /// This will be used as a key for getting the [context] of [OTS] widget
 /// which is used for inserting the [OverlayEntry] into an [Overlay] widget
@@ -40,16 +42,63 @@ Widget _loader;
 class OTS extends StatelessWidget {
   final Widget child;
   final Widget loader;
+  final bool showNetworkUpdates;
 
-  const OTS({Key key, this.child, this.loader}) : super(key: key);
+  const OTS({Key key, this.child, this.loader, this.showNetworkUpdates})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     _loader = loader;
+    if (showNetworkUpdates) {
+      _listenToNetworkChanges();
+    }
     return SizedBox(
       key: _tKey,
       child: child,
     );
+  }
+}
+
+/// handling Internet Connectivity changes
+void _listenToNetworkChanges() async {
+  Connectivity().onConnectivityChanged.listen((event) {
+    switch (event) {
+      case ConnectivityResult.wifi:
+        _showNetworkStateWidget(NetworkState.Connected);
+        break;
+      case ConnectivityResult.mobile:
+        _showNetworkStateWidget(NetworkState.Connected);
+        break;
+      case ConnectivityResult.none:
+        _showNetworkStateWidget(NetworkState.Disconnected);
+        break;
+    }
+  });
+}
+
+_showNetworkStateWidget(NetworkState state) {
+  try {
+    final child = Positioned(
+      bottom: 0.0,
+      left: 0.0,
+      right: 0.0,
+      height: 30.0,
+      child: NetworkWidget(
+        disposeOverlay: _hideOverlay,
+        state: state,
+      ),
+    );
+
+    try {
+      if (_overlayShown) _hideOverlay();
+    } catch (err) {
+      // print(err);
+    }
+
+    _showOverlay(child: child);
+  } catch (err) {
+    debugPrint(err.toString());
   }
 }
 
