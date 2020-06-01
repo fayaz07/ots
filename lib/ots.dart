@@ -2,77 +2,79 @@ library ots;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ots/loadtoast/load_toast.dart';
 import 'widgets/notification.dart';
 
 final _tKey = GlobalKey(debugLabel: 'overlay_parent');
 
-showNotification({@required Widget child}) {
-  BuildContext context = _tKey.currentContext;
+OverlayEntry _overlayEntry;
+bool _overlayShown = false;
 
-  OverlayEntry entry = OverlayEntry(
-    builder: (context) => Positioned(
-      height: 100.0,
-      left: 5.0,
-      right: 5.0,
-      child: NotificationWidget(
-        child: Material(child: Text('hey this is loader dude')),
-        duration: Duration(seconds: 2),
-      ),
+Future<bool> showNotification(
+    {String title = "Notification",
+    @required String message,
+    TextStyle messageStyle,
+    TextStyle titleStyle,
+    Color backgroundColor,
+    int notificationDuration,
+    int animDuration,
+    bool dismissOnTap,
+    VoidCallback onTap,
+    bool autoDismissible}) {
+  assert(message != null);
+  if (_overlayShown) {
+    debugPrint('''One other overlay is already showing''');
+    return Future.value(false);
+  }
+
+  final child = Positioned(
+    left: 8.0,
+    right: 8.0,
+    child: NotificationWidget(
+      disposeOverlay: hideOverlay,
+      backgroundColor: backgroundColor,
+      message: message,
+      title: title,
+      messageStyle: messageStyle,
+      titleStyle: titleStyle,
+      autoDismissible: autoDismissible,
+      duration: notificationDuration,
+      onTap: onTap,
+      dismissOnTap: dismissOnTap,
+      animDuration: animDuration,
     ),
   );
 
-  Overlay.of(context).insert(entry);
+  _showOverlay(child: child);
 
-  Future.delayed(Duration(seconds: 4)).then((value) {
-    try {
-      entry.remove();
-    } catch (err) {}
-  });
+  return Future.value(true);
 }
 
-OverlayEntry overlayEntry;
-
-showLoadToast({Color backgroundColor, Color indicatorColor, String text}) {
+/// These methods deal with showing and hiding the overlay
+Future<bool> _showOverlay({@required Widget child}) async {
   BuildContext context = _tKey.currentContext;
 
-  overlayEntry = OverlayEntry(
-    builder: (context) => Positioned(
-      height: 100.0,
-      left: 5.0,
-      right: 5.0,
-      child: LoadToast(
-        key: loadToastKey,
-        backgroundColor: backgroundColor ?? Colors.white,
-        circularIndicatorColor: indicatorColor ?? Colors.blueAccent,
-      ),
-    ),
+  try {
+    if (_overlayShown) hideOverlay();
+  } catch (err) {
+    print(err);
+  }
+  _overlayShown = true;
+  _overlayEntry = OverlayEntry(
+    builder: (context) => child,
   );
 
-  Overlay.of(context).insert(overlayEntry);
-  Future.delayed(Duration(milliseconds: 50))
-      .whenComplete(() => showLT(text: text));
-
-  Future.delayed(Duration(seconds: 4)).then((value) => success());
-
-  Future.delayed(Duration(seconds: 6)).then((value) {
-    try {
-      overlayEntry.remove();
-    } catch (err) {}
-  });
+  Overlay.of(context).insert(_overlayEntry);
+  debugPrint('''Overlay shown''');
+  return Future.value(true);
 }
 
-success() {
-  successLT();
+hideOverlay() {
+  _overlayEntry.remove();
+  _overlayShown = false;
+  debugPrint('''Overlay removed''');
 }
 
-error() {
-  errorLT();
-}
-
-warning() {
-  warningLT();
-}
+/// --------------------------- end overlay methods --------------------------
 
 class OTS extends StatelessWidget {
   final Widget child;
