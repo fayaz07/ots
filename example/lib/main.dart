@@ -4,6 +4,7 @@ import 'package:ots/ots.dart';
 void main() => runApp(
       MaterialApp(
         home: OTS(
+          showNetworkUpdates: true,
           /// pass your custom loader here
           loader: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
