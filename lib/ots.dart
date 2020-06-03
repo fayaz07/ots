@@ -44,7 +44,7 @@ class OTS extends StatelessWidget {
   final Widget loader;
   final bool showNetworkUpdates;
 
-  const OTS({Key key, this.child, this.loader, this.showNetworkUpdates})
+  const OTS({Key key, this.child, this.loader, this.showNetworkUpdates = false})
       : super(key: key);
 
   @override
