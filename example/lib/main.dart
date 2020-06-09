@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:ots/ots.dart';
 
 void main() => runApp(
-      MaterialApp(
-        home: OTS(
-          showNetworkUpdates: true,
-          /// pass your custom loader here
-          loader: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-          ),
-          child: Home(),
-        ),
+      MyApp(),
+    );
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return OTS(
+      showNetworkUpdates: true,
+      /// pass your custom loader here
+      loader: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+      ),
+      child: MaterialApp(
+        home: Home(),
       ),
     );
+  }
+}
 
 final textStyle = TextStyle(color: Colors.white);
 

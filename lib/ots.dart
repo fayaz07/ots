@@ -1,7 +1,8 @@
 library ots;
 
 import 'dart:io' show Platform;
-import 'package:flutter/cupertino.dart' show CupertinoActivityIndicator;
+import 'package:flutter/cupertino.dart'
+    show CupertinoActivityIndicator, Element, Navigator, StatefulElement;
 import 'package:flutter/material.dart' show CircularProgressIndicator, Colors;
 import 'package:flutter/widgets.dart'
     show
@@ -21,6 +22,8 @@ import 'package:flutter/widgets.dart'
         BuildContext,
         Center,
         Stack,
+        OverlayState,
+        NavigatorState,
         ModalBarrier;
 import 'package:ots/widgets/network_state.dart';
 import 'widgets/notification.dart';
@@ -58,6 +61,39 @@ class OTS extends StatelessWidget {
       child: child,
     );
   }
+}
+
+OverlayState get _overlayState {
+  final context = _tKey.currentContext;
+  if (context == null) return null;
+
+  NavigatorState navigator;
+  void visitor(Element element) {
+    if (navigator != null) return;
+
+    if (element.widget is Navigator) {
+      navigator = (element as StatefulElement).state;
+    } else {
+      element.visitChildElements(visitor);
+    }
+  }
+
+  context.visitChildElements(visitor);
+
+  assert(navigator != null,
+      '''It looks like you are not using Navigator in your app.
+         
+         do you wrapped you app widget like this?
+         
+         OverlaySupport(
+           child: MaterialApp(
+             title: 'Overlay Support Example',
+             home: HomePage(),
+           ),
+         )
+      
+      ''');
+  return navigator.overlay;
 }
 
 /// handling Internet Connectivity changes
@@ -189,7 +225,7 @@ Future<bool> hideNotification() async {
 /// These methods deal with showing and hiding the overlay
 Future<bool> _showOverlay({@required Widget child}) async {
   try {
-    BuildContext context = _tKey.currentContext;
+    final overlay = _overlayState;
 
     if (_overlayShown) {
       debugPrint('''Another overlay is already showing''');
@@ -206,7 +242,8 @@ Future<bool> _showOverlay({@required Widget child}) async {
       builder: (context) => child,
     );
 
-    Overlay.of(context).insert(_overlayEntry);
+//    Overlay.of(context).insert(_overlayEntry);
+    overlay.insert(_overlayEntry);
     _overlayShown = true;
     debugPrint('''Overlay shown''');
     return Future.value(true);
