@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:ots/utils/styles.dart';
 
 enum NetworkState { Connected, Disconnected, Weak }
@@ -39,8 +39,13 @@ extension NetworkStateMessage on NetworkState {
 class NetworkWidget extends StatefulWidget {
   final VoidCallback disposeOverlay;
   final NetworkState state;
+  final bool persistNotification;
 
-  const NetworkWidget({Key key, this.disposeOverlay, this.state})
+  const NetworkWidget(
+      {Key key,
+      this.disposeOverlay,
+      this.state,
+      this.persistNotification = false})
       : super(key: key);
 
   @override
@@ -69,15 +74,20 @@ class _NetworkWidgetState extends State<NetworkWidget>
   }
 
   _reverse() async {
-    try {
-      await Future.delayed(Duration(milliseconds: 2000));
-      if (mounted) {
-        await _animationController.reverse();
-        _callDispose();
+    if (widget.state == NetworkState.Disconnected &&
+        widget.persistNotification) {
+      debugPrint('Persisting NoInternet NetworkStatusWidget');
+    } else {
+      try {
+        await Future.delayed(Duration(milliseconds: 2000));
+        if (mounted) {
+          await _animationController.reverse();
+          _callDispose();
+        }
+      } catch (err) {
+        debugPrint('''NetworkStatusWidget dispose error''');
+        throw err;
       }
-    } catch (err) {
-      debugPrint('''NotificationWidget dispose error''');
-      throw err;
     }
   }
 
@@ -88,7 +98,6 @@ class _NetworkWidgetState extends State<NetworkWidget>
   @override
   void dispose() {
     _animationController.dispose();
-//    debugPrint('''NotificationWidget disposed''');
     super.dispose();
   }
 
@@ -101,8 +110,6 @@ class _NetworkWidgetState extends State<NetworkWidget>
         transform:
             Matrix4.translationValues(0.0, -_animation.value * height, 0.0),
         child: Material(
-//          shape:
-//              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           color: widget.state.color,
           child: Center(
             child: Text(

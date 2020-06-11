@@ -10,6 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OTS(
       showNetworkUpdates: true,
+      persistNoInternetNotification: false,
+
       /// pass your custom loader here
       loader: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),

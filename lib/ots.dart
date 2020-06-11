@@ -1,33 +1,14 @@
 library ots;
 
 import 'dart:io' show Platform;
-import 'package:flutter/cupertino.dart'
-    show CupertinoActivityIndicator, Element, Navigator, StatefulElement;
-import 'package:flutter/material.dart' show CircularProgressIndicator, Colors;
-import 'package:flutter/widgets.dart'
-    show
-        GlobalKey,
-        OverlayEntry,
-        Overlay,
-        required,
-        StatelessWidget,
-        debugPrint,
-        VoidCallback,
-        Positioned,
-        TextStyle,
-        Color,
-        Widget,
-        SizedBox,
-        Key,
-        BuildContext,
-        Center,
-        Stack,
-        OverlayState,
-        NavigatorState,
-        ModalBarrier;
-import 'package:ots/widgets/network_state.dart';
-import 'widgets/notification.dart';
+
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:ots/widgets/network_state.dart';
+
+import 'widgets/notification.dart';
 
 /// This will be used as a key for getting the [context] of [OTS] widget
 /// which is used for inserting the [OverlayEntry] into an [Overlay] widget
@@ -126,10 +107,13 @@ Future<void> _showNetworkStateWidget(NetworkState state) async {
       child: NetworkWidget(
         disposeOverlay: _hideNetworkStateWidget,
         state: state,
+        persistNotification: _persistNoInternetToast,
       ),
     );
 
-    if (_persistNoInternetToast) {}
+    if (_OverlayType.NetworkStatus.isShowing()) {
+      await _hideNetworkStateWidget();
+    }
 
     await _showOverlay(child: child, type: _OverlayType.NetworkStatus);
   } catch (err) {
@@ -337,9 +321,6 @@ extension OverlayTypeExtension on _OverlayType {
         _networkShown = true;
         break;
     }
-    print("Notification: $_notificationShown");
-    print("Loader: $_loaderShown");
-    print("Network: $_networkShown");
   }
 
   void hide() {
@@ -354,9 +335,6 @@ extension OverlayTypeExtension on _OverlayType {
         _networkShown = false;
         break;
     }
-    print("Notification: $_notificationShown");
-    print("Loader: $_loaderShown");
-    print("Network: $_networkShown");
   }
 
   OverlayEntry getOverlayEntry() {
