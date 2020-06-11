@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:ots/ots.dart';
 
 void main() => runApp(
-      MaterialApp(
-        home: OTS(
-          showNetworkUpdates: true,
-          /// pass your custom loader here
-          loader: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-          ),
-          child: Home(),
-        ),
+      MyApp(),
+    );
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return OTS(
+      showNetworkUpdates: true,
+      persistNoInternetNotification: false,
+
+      /// pass your custom loader here
+      loader: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+      ),
+      child: MaterialApp(
+        home: Home(),
       ),
     );
+  }
+}
 
 final textStyle = TextStyle(color: Colors.white);
 
@@ -45,7 +54,7 @@ class _HomeState extends State<Home> {
                     showNotification(
                       message: 'Hello, this is notification',
                       title: 'Test',
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.green,
                       autoDismissible: true,
                       notificationDuration: 2500,
                     );
