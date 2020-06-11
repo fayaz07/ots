@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                     showNotification(
                       message: 'Hello, this is notification',
                       title: 'Test',
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.green,
                       autoDismissible: true,
                       notificationDuration: 2500,
                     );

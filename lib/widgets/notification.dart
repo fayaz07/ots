@@ -79,7 +79,6 @@ class _NotificationWidgetState extends State<NotificationWidget>
   @override
   void dispose() {
     _animationController.dispose();
-//    debugPrint('''NotificationWidget disposed''');
     super.dispose();
   }
 
@@ -110,7 +109,7 @@ class _NotificationWidgetState extends State<NotificationWidget>
               elevation: 4.0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0)),
-              color: Colors.black,
+              color: widget.backgroundColor,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
