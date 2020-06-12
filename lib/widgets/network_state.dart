@@ -14,10 +14,10 @@ extension NetworkStateMessage on NetworkState {
         return "No internet connection";
         break;
       case NetworkState.Weak:
-        return "Weak internet connection";
+        return "Internet may not be available";
         break;
     }
-    return "Connected to internet";
+    return "Unknown internet status";
   }
 
   Color get color {
@@ -29,10 +29,10 @@ extension NetworkStateMessage on NetworkState {
         return Colors.red;
         break;
       case NetworkState.Weak:
-        return Colors.yellow;
+        return Colors.orange;
         break;
     }
-    return Colors.green;
+    return Colors.orange;
   }
 }
 

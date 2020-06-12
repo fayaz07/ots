@@ -1,6 +1,6 @@
 library ots;
 
-import 'dart:io' show Platform;
+import 'dart:io' show InternetAddress, Platform, SocketException;
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,16 +85,27 @@ void _listenToNetworkChanges() async {
   Connectivity().onConnectivityChanged.listen((event) {
     switch (event) {
       case ConnectivityResult.wifi:
-        _showNetworkStateWidget(NetworkState.Connected);
+        _checkInternetConnectionAndShowStatus();
         break;
       case ConnectivityResult.mobile:
-        _showNetworkStateWidget(NetworkState.Connected);
+        _checkInternetConnectionAndShowStatus();
         break;
       case ConnectivityResult.none:
         _showNetworkStateWidget(NetworkState.Disconnected);
         break;
     }
   });
+}
+
+_checkInternetConnectionAndShowStatus() async {
+  try {
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      _showNetworkStateWidget(NetworkState.Connected);
+    }
+  } on SocketException catch (_) {
+    _showNetworkStateWidget(NetworkState.Weak);
+  }
 }
 
 Future<void> _showNetworkStateWidget(NetworkState state) async {
