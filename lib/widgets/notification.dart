@@ -45,7 +45,7 @@ class _NotificationWidgetState extends State<NotificationWidget>
     _animationController = AnimationController(
         vsync: this,
         duration: Duration(milliseconds: widget.animDuration ?? 400));
-    _animation = Tween(begin: -0.3, end: 0.05).animate(
+    _animation = Tween(begin: -0.3, end: 0.075).animate(
       CurvedAnimation(
         curve: Curves.linear,
         parent: _animationController,
