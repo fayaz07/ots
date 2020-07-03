@@ -20,6 +20,9 @@ OverlayEntry _notificationEntry;
 OverlayEntry _loaderEntry;
 OverlayEntry _networkStatusEntry;
 
+/// is dark theme
+bool isDarkTheme = false;
+
 /// To keep track if the [Overlay] is shown
 bool _notificationShown = false;
 bool _loaderShown = false;
@@ -35,18 +38,21 @@ class OTS extends StatelessWidget {
   final Widget loader;
   final bool showNetworkUpdates;
   final bool persistNoInternetNotification;
+  final bool darkTheme;
 
   const OTS(
       {Key key,
       this.child,
       this.loader,
       this.showNetworkUpdates = false,
-      this.persistNoInternetNotification = false})
+      this.persistNoInternetNotification = false,
+      this.darkTheme = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     _loadingIndicator = loader;
+    isDarkTheme = darkTheme;
     _persistNoInternetToast = persistNoInternetNotification;
     if (showNetworkUpdates) {
       _listenToNetworkChanges();

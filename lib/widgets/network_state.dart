@@ -2,40 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ots/utils/styles.dart';
 
-enum NetworkState { Connected, Disconnected, Weak }
-
-extension NetworkStateMessage on NetworkState {
-  String get message {
-    switch (this) {
-      case NetworkState.Connected:
-        return "Connected to internet";
-        break;
-      case NetworkState.Disconnected:
-        return "No internet connection";
-        break;
-      case NetworkState.Weak:
-        return "Internet may not be available";
-        break;
-    }
-    return "Unknown internet status";
-  }
-
-  Color get color {
-    switch (this) {
-      case NetworkState.Connected:
-        return Colors.green;
-        break;
-      case NetworkState.Disconnected:
-        return Colors.red;
-        break;
-      case NetworkState.Weak:
-        return Colors.orange;
-        break;
-    }
-    return Colors.orange;
-  }
-}
-
 class NetworkWidget extends StatefulWidget {
   final VoidCallback disposeOverlay;
   final NetworkState state;
@@ -120,5 +86,39 @@ class _NetworkWidgetState extends State<NetworkWidget>
         ),
       ),
     );
+  }
+}
+
+enum NetworkState { Connected, Disconnected, Weak }
+
+extension NetworkStateMessage on NetworkState {
+  String get message {
+    switch (this) {
+      case NetworkState.Connected:
+        return "Connected to internet";
+        break;
+      case NetworkState.Disconnected:
+        return "No internet connection";
+        break;
+      case NetworkState.Weak:
+        return "Internet may not be available";
+        break;
+    }
+    return "Unknown internet status";
+  }
+
+  Color get color {
+    switch (this) {
+      case NetworkState.Connected:
+        return Colors.green;
+        break;
+      case NetworkState.Disconnected:
+        return Colors.red;
+        break;
+      case NetworkState.Weak:
+        return Colors.orange;
+        break;
+    }
+    return Colors.orange;
   }
 }

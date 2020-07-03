@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ots/ots.dart';
 
@@ -13,10 +14,15 @@ class MyApp extends StatelessWidget {
       persistNoInternetNotification: false,
 
       /// pass your custom loader here
-      loader: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-      ),
-      child: MaterialApp(
+//      loader: CircularProgressIndicator(
+//        valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+//      ),
+//      child: MaterialApp(
+//      title: 'OTS Test',
+//        home: Home(),
+//      ),
+      child: CupertinoApp(
+        title: 'OTS Test',
         home: Home(),
       ),
     );
@@ -36,59 +42,38 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              alignment: WrapAlignment.center,
-              direction: Axis.horizontal,
-              children: <Widget>[
-                RaisedButton(
-                  color: Colors.blue,
-                  child: Text('Show Notification', style: textStyle),
-                  onPressed: () {
-                    showNotification(
-                      message: 'Hello, this is notification',
-                      title: 'Test',
-                      backgroundColor: Colors.green,
-                      autoDismissible: true,
-                      notificationDuration: 2500,
-                    );
-                  },
-                ),
-                RaisedButton(
-                  color: Colors.green,
-                  child: Text('Show Loader', style: textStyle),
-                  onPressed: () async {
-                    showLoader(
-                      isModal: true,
-                    );
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                color: Colors.blue,
+                child: Text('Show Notification', style: textStyle),
+                onPressed: () {
+                  showNotification(
+                    message: 'Hello, this is notification',
+                    title: 'Test',
+                    backgroundColor: Colors.green,
+                    autoDismissible: true,
+                    notificationDuration: 2500,
+                  );
 
-                    await Future.delayed(Duration(seconds: 3));
-                    hideLoader();
-                  },
-                ),
-                RaisedButton(
-                  color: Colors.red,
-                  child: Text('LoadToast Error'),
-                  onPressed: () {
-//                    hideLoadToastWithError();
-                  },
-                ),
-                RaisedButton(
-                  color: Colors.orange,
-                  child: Text('LoadToast Warning'),
-                  onPressed: () {
-//                    hideLoadToastWithWarning();
-                  },
-                ),
-              ],
-            ),
-          ],
+                },
+              ),
+              RaisedButton(
+                color: Colors.green,
+                child: Text('Show Loader', style: textStyle),
+                onPressed: () async {
+                  showLoader(
+                    isModal: true,
+                  );
+
+                  await Future.delayed(Duration(seconds: 3));
+                  hideLoader();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
