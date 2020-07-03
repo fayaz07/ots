@@ -5,7 +5,8 @@ An widget that can show loaders, notifications, internet connectivity changes as
 [Example](example/lib/main.dart)
 
 ### Demo
-![Internet connectivity changes](screenshots/internet.gif  "Internet connectivity changes") | ![Loader](screenshots/loader.gif  "Loader") | ![Notification](screenshots/notification.gif  "Notification")
+<img src="https://raw.githubusercontent.com/fayaz07/ots/development/screenshots/internet.gif" height="30%" width="30%"  alt="Internet connectivity changes"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/development/screenshots/loader.gif" height="30%" width="30%"  alt="Loader"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/development/screenshots/notification.gif" height="30%" width="30%"  alt="Notification"/>
+
 
 
 ### Installation
@@ -15,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   ...
-    
+
   ots:
     git:
       url: git://github.com/fayaz07/ots.git
@@ -30,7 +31,7 @@ void main() => runApp(
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return OTS(	
+    return OTS(
       showNetworkUpdates: true,
       persistNoInternetNotification: false,
 
@@ -71,7 +72,7 @@ showNotification(
   autoDismissible: true,
   notificationDuration: 2500,
 );
-                  
+
 // use only if `autoDismissible: false`
 hideNotification();
 ```
