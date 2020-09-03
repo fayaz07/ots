@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1+1] .
 
-* TODO: Describe initial release.
+* Updated connectivity package version to ^0.4.9+2.
+
+## [0.0.1] .
+
+* Initial release.
