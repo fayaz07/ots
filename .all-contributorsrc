@@ -6,29 +6,6 @@
   "commit": false,
   "contributors": [
     {
-      "login": "alexandradeas",
-      "name": "Alex Deas",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/12813479?v=4",
-      "profile": "https://github.com/alexandradeas",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "me",
-      "name": "Ivan",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/9734?v=4",
-      "profile": "https://github.com/me",
-      "contributions": [
-        "code",
-        "content",
-        "doc",
-        "example",
-        "ideas",
-        "maintenance"
-      ]
-    },
-    {
       "login": "fayaz07",
       "name": "Mohammad Fayaz",
       "avatar_url": "https://avatars0.githubusercontent.com/u/35001172?v=4",
@@ -40,6 +17,15 @@
         "example",
         "ideas",
         "maintenance"
+      ]
+    },
+    {
+      "login": "alexandradeas",
+      "name": "Alex Deas",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12813479?v=4",
+      "profile": "https://github.com/alexandradeas",
+      "contributions": [
+        "code"
       ]
     }
   ],
