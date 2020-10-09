@@ -1,13 +1,46 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ots/ots.dart';
 
 void main() {
-  test('adds one to input values', () {
-//    final calculator = Calculator();
-//    expect(calculator.addOne(2), 3);
-//    expect(calculator.addOne(-7), -6);
-//    expect(calculator.addOne(0), 1);
-//    expect(() => calculator.addOne(null), throwsNoSuchMethodError);
-  });
+  testWidgets(
+    'hideLoader does not throw when no overlay is shown',
+    (tester) async {
+      await tester.pumpWidget(
+        OTS(
+          child: MaterialApp(
+            home: Scaffold(),
+          ),
+        ),
+      );
+      await showLoader();
+      await hideLoader();
+      try {
+        await hideLoader();
+      } catch (e) {
+        fail('threw on second call to [hideLoader]');
+      }
+    },
+  );
+
+  testWidgets(
+    'hideNotification does not throw when no overlay is shown',
+    (tester) async {
+      await tester.pumpWidget(
+        OTS(
+          child: MaterialApp(
+            home: Scaffold(),
+          ),
+        ),
+      );
+      await showNotification(message: 'foo');
+      await hideNotification();
+      try {
+        await hideNotification();
+      } catch (e) {
+        fail('threw on second call to [hideNotification]');
+      }
+    },
+  );
 }

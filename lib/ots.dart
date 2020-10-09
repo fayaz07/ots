@@ -277,8 +277,12 @@ Future<void> _showOverlay({@required Widget child, _OverlayType type}) async {
 
 Future<void> _hideOverlay(_OverlayType type) async {
   try {
-    type.getOverlayEntry().remove();
-    type.hide();
+    if (type.isShowing()) {
+      type.getOverlayEntry().remove();
+      type.hide();
+    } else {
+      _printLog('No overlay is shown');
+    }
   } catch (err) {
     _printError(
         '''Caught an exception while trying to remove Overlay\n${err.toString()}''');
