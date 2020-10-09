@@ -91,10 +91,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+       <td align="center"><a href="http://fayaz07.me"><img src="https://avatars0.githubusercontent.com/u/35001172?v=4" width="100px;" alt=""/><br /><sub><b>Mohammad Fayaz</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Code">💻</a> <a href="#content-fayaz07" title="Content">🖋</a> <a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Documentation">📖</a> <a href="#example-fayaz07" title="Examples">💡</a> <a href="#ideas-fayaz07" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-fayaz07" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/alexandradeas"><img src="https://avatars0.githubusercontent.com/u/12813479?v=4" width="100px;" alt=""/><br /><sub><b>Alex Deas</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=alexandradeas" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/me"><img src="https://avatars2.githubusercontent.com/u/9734?v=4" width="100px;" alt=""/><br /><sub><b>Ivan</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=me" title="Code">💻</a> <a href="#content-me" title="Content">🖋</a> <a href="https://github.com/fayaz07/ots/commits?author=me" title="Documentation">📖</a> <a href="#example-me" title="Examples">💡</a> <a href="#ideas-me" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-me" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="http://fayaz07.me"><img src="https://avatars0.githubusercontent.com/u/35001172?v=4" width="100px;" alt=""/><br /><sub><b>Mohammad Fayaz</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Code">💻</a> <a href="#content-fayaz07" title="Content">🖋</a> <a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Documentation">📖</a> <a href="#example-fayaz07" title="Examples">💡</a> <a href="#ideas-fayaz07" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-fayaz07" title="Maintenance">🚧</a></td>
-  </tr>
+   </tr>
 </table>
 
 <!-- markdownlint-enable -->
