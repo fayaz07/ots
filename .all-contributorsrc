@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "alexandradeas",
+      "name": "Alex Deas",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12813479?v=4",
+      "profile": "https://github.com/alexandradeas",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "ots",
+  "projectOwner": "fayaz07",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
