@@ -27,6 +27,20 @@
         "ideas",
         "maintenance"
       ]
+    },
+    {
+      "login": "fayaz07",
+      "name": "Mohammad Fayaz",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/35001172?v=4",
+      "profile": "http://fayaz07.me",
+      "contributions": [
+        "code",
+        "content",
+        "doc",
+        "example",
+        "ideas",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
