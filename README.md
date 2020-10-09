@@ -1,6 +1,6 @@
 # ots
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 An widget that can show loaders, notifications, internet connectivity changes as `Overlay`.
@@ -92,6 +92,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/alexandradeas"><img src="https://avatars0.githubusercontent.com/u/12813479?v=4" width="100px;" alt=""/><br /><sub><b>Alex Deas</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=alexandradeas" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/me"><img src="https://avatars2.githubusercontent.com/u/9734?v=4" width="100px;" alt=""/><br /><sub><b>Ivan</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=me" title="Code">💻</a> <a href="#content-me" title="Content">🖋</a> <a href="https://github.com/fayaz07/ots/commits?author=me" title="Documentation">📖</a> <a href="#example-me" title="Examples">💡</a> <a href="#ideas-me" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-me" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
