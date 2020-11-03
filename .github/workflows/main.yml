@@ -1,0 +1,27 @@
+name: Validate PR
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/**
+      - lib/**
+      - test/**
+      - assets/**
+      - pubspec.*
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    container: cirrusci/flutter
+    steps:
+      - uses: actions/checkout@v2
+      - name: Versions
+        run: |
+          dart --version
+          flutter --version
+      - name: Dependencies
+        run: flutter pub get
+      - name: Lint
+        run: flutter analyze
+      - name: Test
+        run: flutter test
