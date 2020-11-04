@@ -57,7 +57,6 @@ class _HomeState extends State<Home> {
                     autoDismissible: true,
                     notificationDuration: 2500,
                   );
-
                 },
               ),
               RaisedButton(

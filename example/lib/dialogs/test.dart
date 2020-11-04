@@ -24,7 +24,7 @@ class _DialogTestState extends State<DialogTest> {
             child: InkWell(
               child: Text('show about dialog'),
               onTap: () {
-                showaaDialog();
+                showDialog();
               },
             ),
           ),
@@ -36,7 +36,7 @@ class _DialogTestState extends State<DialogTest> {
     );
   }
 
-  showaaDialog() {
+  showDialog() {
     setState(() {
       dialog = AnimatedAboutDialog(
         title: Text('AlertDialog Title'),
@@ -58,33 +58,5 @@ class _DialogTestState extends State<DialogTest> {
         ],
       );
     });
-  }
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }
