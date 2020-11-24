@@ -3,16 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-const double _kCupertinoDialogWidth = 270.0;
-const double _kAccessibilityCupertinoDialogWidth = 310.0;
-
-const double _kBlurAmount = 20.0;
-const double _kEdgePadding = 20.0;
-const double _kMinButtonHeight = 45.0;
-const double _kMinButtonFontSize = 10.0;
-const double _kDialogCornerRadius = 14.0;
-const double _kDividerThickness = 1.0;
-
 const Duration _dialogDuration = Duration(milliseconds: 100);
 const Curve _animCurve = Curves.linear;
 
@@ -32,8 +22,8 @@ class AnimatedAboutDialog extends StatefulWidget {
     this.actionScrollController,
     this.scrollController,
     this.insetAnimationCurve,
-    this.insetAnimationDuration, this.dismiss,
-
+    this.insetAnimationDuration,
+    this.dismiss,
   }) : super(key: key);
 
   @override
@@ -48,9 +38,10 @@ class _AnimatedAboutDialogState extends State<AnimatedAboutDialog>
   @override
   void initState() {
     _controller = AnimationController(
-        vsync: this,
-        duration: _dialogDuration,
-        animationBehavior: AnimationBehavior.normal);
+      vsync: this,
+      duration: _dialogDuration,
+      animationBehavior: AnimationBehavior.normal,
+    );
     _scale = Tween(begin: 0.3, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
