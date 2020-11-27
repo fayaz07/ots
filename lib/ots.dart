@@ -6,9 +6,17 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ots/toast/types.dart';
+import 'package:ots/toast/widgets/error.dart';
+import 'package:ots/toast/widgets/info.dart';
+import 'package:ots/toast/widgets/normal.dart';
+import 'package:ots/toast/widgets/success.dart';
+import 'package:ots/toast/widgets/warning.dart';
 import 'package:ots/widgets/network_state.dart';
 
 import 'widgets/notification.dart';
+
+export 'toast/types.dart';
 
 /// This will be used as a key for getting the [context] of [OTS] widget
 /// which is used for inserting the [OverlayEntry] into an [Overlay] widget
@@ -19,6 +27,7 @@ final _modalBarrierDefaultColor = Colors.grey.withOpacity(0.15);
 OverlayEntry _notificationEntry;
 OverlayEntry _loaderEntry;
 OverlayEntry _networkStatusEntry;
+OverlayEntry _toastEntry;
 
 /// is dark theme
 bool isDarkTheme = false;
@@ -27,6 +36,7 @@ bool isDarkTheme = false;
 bool _notificationShown = false;
 bool _loaderShown = false;
 bool _networkShown = false;
+bool _toastShown = false;
 bool _persistNoInternetToast = false;
 
 bool _showDebugLogs = false;
@@ -244,6 +254,59 @@ Future<void> hideNotification() async {
   }
 }
 
+///----------------------------------Toasts------------------------------------
+Future<void> bakeToast(String message,
+    {ToastType type = ToastType.normal}) async {
+  try {
+    Widget _toast;
+    switch (type) {
+      case ToastType.normal:
+        _toast = DefaultToast(message: message, onToasted: _hideToast);
+        break;
+      case ToastType.info:
+        _toast = InfoToast(message: message, onToasted: _hideToast);
+        break;
+      case ToastType.success:
+        _toast = SuccessToast(message: message, onToasted: _hideToast);
+        break;
+      case ToastType.error:
+        _toast = ErrorToast(message: message, onToasted: _hideToast);
+        break;
+      case ToastType.warning:
+        _toast = WarningToast(message: message, onToasted: _hideToast);
+        break;
+    }
+
+    final child = Positioned(
+      left: 8.0,
+      right: 8.0,
+      bottom: 72.0,
+      child: Center(
+        child: _toast,
+      ),
+    );
+
+    _printLog('''Showing Toast overlay''');
+
+    await _showOverlay(child: child, type: _OverlayType.Toast);
+  } catch (err) {
+    _printError('''Caught an exception while trying to show Toast''');
+    throw err;
+  }
+}
+
+Future<void> _hideToast() async {
+  try {
+    _printLog('''Hiding Toast overlay''');
+    await _hideOverlay(_OverlayType.Toast);
+  } catch (err) {
+    _printError('''Caught an exception while trying to hide Toast''');
+    throw err;
+  }
+}
+
+///--------------------------------End Toast-----------------------------------
+
 ///----------------------------------------------------------------------------
 /// These methods deal with showing and hiding the overlay
 Future<void> _showOverlay({@required Widget child, _OverlayType type}) async {
@@ -303,6 +366,7 @@ enum _OverlayType {
   Notification,
   Loader,
   NetworkStatus,
+  Toast,
 }
 
 extension OverlayTypeExtension on _OverlayType {
@@ -314,6 +378,8 @@ extension OverlayTypeExtension on _OverlayType {
         return "Loader";
       case _OverlayType.NetworkStatus:
         return "NetworkStatus";
+      case _OverlayType.Toast:
+        return "Toast";
     }
     return "Overlay";
   }
@@ -326,6 +392,8 @@ extension OverlayTypeExtension on _OverlayType {
         return _loaderShown;
       case _OverlayType.NetworkStatus:
         return _networkShown;
+      case _OverlayType.Toast:
+        return _toastShown;
     }
     return false;
   }
@@ -341,6 +409,9 @@ extension OverlayTypeExtension on _OverlayType {
       case _OverlayType.NetworkStatus:
         _networkShown = true;
         break;
+      case _OverlayType.Toast:
+        _toastShown = true;
+        break;
     }
   }
 
@@ -355,6 +426,9 @@ extension OverlayTypeExtension on _OverlayType {
       case _OverlayType.NetworkStatus:
         _networkShown = false;
         break;
+      case _OverlayType.Toast:
+        _toastShown = false;
+        break;
     }
   }
 
@@ -366,6 +440,8 @@ extension OverlayTypeExtension on _OverlayType {
         return _loaderEntry;
       case _OverlayType.NetworkStatus:
         return _networkStatusEntry;
+      case _OverlayType.Toast:
+        return _toastEntry;
     }
     return null;
   }
@@ -380,6 +456,9 @@ extension OverlayTypeExtension on _OverlayType {
         break;
       case _OverlayType.NetworkStatus:
         _networkStatusEntry = entry;
+        break;
+      case _OverlayType.Toast:
+        _toastEntry = entry;
         break;
     }
   }

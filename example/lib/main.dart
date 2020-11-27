@@ -71,6 +71,13 @@ class _HomeState extends State<Home> {
                   hideLoader();
                 },
               ),
+              RaisedButton(
+                color: Colors.green,
+                child: Text('Show Toast', style: textStyle),
+                onPressed: () async {
+                  bakeToast("Hey toast!", type: ToastType.success);
+                },
+              ),
             ],
           ),
         ),
