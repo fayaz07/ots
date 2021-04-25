@@ -129,13 +129,15 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-       <td align="center"><a href="http://fayaz07.me"><img src="https://avatars0.githubusercontent.com/u/35001172?v=4" width="100px;" alt=""/><br /><sub><b>Mohammad Fayaz</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Code">💻</a> <a href="#content-fayaz07" title="Content">🖋</a> <a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Documentation">📖</a> <a href="#example-fayaz07" title="Examples">💡</a> <a href="#ideas-fayaz07" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-fayaz07" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/alexandradeas"><img src="https://avatars0.githubusercontent.com/u/12813479?v=4" width="100px;" alt=""/><br /><sub><b>Alex Deas</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=alexandradeas" title="Code">💻</a></td>
-   </tr>
+    <td align="center"><a href="http://fayaz07.me"><img src="https://avatars0.githubusercontent.com/u/35001172?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohammad Fayaz</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Code">💻</a> <a href="#content-fayaz07" title="Content">🖋</a> <a href="https://github.com/fayaz07/ots/commits?author=fayaz07" title="Documentation">📖</a> <a href="#example-fayaz07" title="Examples">💡</a> <a href="#ideas-fayaz07" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-fayaz07" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/alexandradeas"><img src="https://avatars0.githubusercontent.com/u/12813479?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Deas</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=alexandradeas" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/pranathireddyk"><img src="https://avatars.githubusercontent.com/u/34978536?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pranathi Reddy</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=pranathireddyk" title="Code">💻</a></td>
+  </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
