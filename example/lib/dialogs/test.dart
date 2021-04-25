@@ -49,7 +49,7 @@ class _DialogTestState extends State<DialogTest> {
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text('Approve'),
             onPressed: () {
               Navigator.of(context).pop();
