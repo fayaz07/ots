@@ -8,7 +8,8 @@ An widget that can show loaders, notifications, internet connectivity changes as
 [Example](example/lib/main.dart)
 
 ### Demo
-<img src="https://raw.githubusercontent.com/fayaz07/ots/development/screenshots/internet.gif" height="30%" width="30%"  alt="Internet connectivity changes"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/development/screenshots/loader.gif" height="30%" width="30%"  alt="Loader"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/development/screenshots/notification.gif" height="30%" width="30%"  alt="Notification"/>
+<img src="screenshots/internet.gif" height="30%" width="30%"  alt="Internet connectivity changes"/> <img src="screenshots/loader.gif" height="30%" width="30%"  alt="Loader"/> <img src="screenshots/notification.gif" height="30%" width="30%"  alt="Notification"/> 
+<img src="screenshots/default_toast.png" height="30%" width="30%"  alt="default_toast"/> <img src="screenshots/error_toast.png" height="30%" width="30%"  alt="error_toast"/> <img src="screenshots/info_toast.png" height="30%" width="30%"  alt="info_toast"/> <img src="screenshots/success_toast.png" height="30%" width="30%"  alt="success_toast"/> <img src="screenshots/warning_toast.png" height="30%" width="30%"  alt="warning_toast"/>
 
 
 
@@ -80,7 +81,44 @@ showNotification(
 hideNotification();
 ```
 
+#### Showing toasts
+
+##### Default toast
+```
+bakeToast("Hey toast!");
+```
+
+##### Info toast
+```
+bakeToast("Hey info!", type: ToastType.info);
+```
+
+##### Success toast
+```
+bakeToast("Hey success!", type: ToastType.success);
+```
+
+##### Error toast
+```
+bakeToast("Hey error!", type: ToastType.error);
+```
+
+##### Warning toast
+```
+bakeToast("Hey warning!", type: ToastType.warning);
+```
+
 > Note: Notifications are automatically dismissed after the specified duration if `autoDismissible` is set to true.
+
+### Demo
+<img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/internet.gif" height="30%" width="30%"  alt="Internet connectivity changes"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/loader.gif" height="30%" width="30%"  alt="Loader"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/notification.gif" height="30%" width="30%"  alt="Notification"/> 
+
+
+<img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/default_toast.png" height="30%" width="30%"  alt="default_toast"/> 
+<img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/error_toast.png" height="30%" width="30%"  alt="error_toast"/> 
+<img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/info_toast.png" height="30%" width="30%"  alt="info_toast"/> 
+<img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/success_toast.png" height="30%" width="30%"  alt="success_toast"/>
+<img src="https://raw.githubusercontent.com/fayaz07/ots/screenshots/warning_toast.png" height="30%" width="30%"  alt="warning_toast"/>
 
 ## Contributors ✨
 
