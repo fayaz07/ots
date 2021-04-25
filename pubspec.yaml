@@ -1,6 +1,6 @@
 name: ots
 description: A package for showing loading indicators, notifications, dialogs, internet connectivity updates, Over the Screen easily.
-version: 0.0.1+1
+version: 0.0.2
 author: Fayaz
 homepage: https://github.com/fayaz07/ots
 
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  connectivity: ^0.4.9+2
+  connectivity: ^3.0.3
 
 dev_dependencies:
   flutter_test:

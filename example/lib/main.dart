@@ -46,8 +46,7 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              RaisedButton(
-                color: Colors.blue,
+              ElevatedButton(
                 child: Text('Show Notification', style: textStyle),
                 onPressed: () {
                   showNotification(
@@ -59,8 +58,7 @@ class _HomeState extends State<Home> {
                   );
                 },
               ),
-              RaisedButton(
-                color: Colors.green,
+              ElevatedButton(
                 child: Text('Show Loader', style: textStyle),
                 onPressed: () async {
                   showLoader(
@@ -71,11 +69,10 @@ class _HomeState extends State<Home> {
                   hideLoader();
                 },
               ),
-              RaisedButton(
-                color: Colors.green,
+              ElevatedButton(
                 child: Text('Show Toast', style: textStyle),
                 onPressed: () async {
-                  bakeToast("Hey toast!", type: ToastType.success);
+                  bakeToast("Hey info!", type: ToastType.info);
                 },
               ),
             ],
