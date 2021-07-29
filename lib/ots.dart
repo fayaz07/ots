@@ -2,7 +2,7 @@ library ots;
 
 import 'dart:io' show InternetAddress, Platform, SocketException;
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,10 +24,10 @@ final _tKey = GlobalKey(debugLabel: 'overlay_parent');
 final _modalBarrierDefaultColor = Colors.grey.withOpacity(0.15);
 
 /// Updates with the latest [OverlayEntry] child
-OverlayEntry _notificationEntry;
-OverlayEntry _loaderEntry;
-OverlayEntry _networkStatusEntry;
-OverlayEntry _toastEntry;
+OverlayEntry? _notificationEntry;
+OverlayEntry? _loaderEntry;
+OverlayEntry? _networkStatusEntry;
+OverlayEntry? _toastEntry;
 
 /// is dark theme
 bool isDarkTheme = false;
@@ -41,22 +41,26 @@ bool _persistNoInternetToast = false;
 
 bool _showDebugLogs = false;
 
-Widget _loadingIndicator;
+Widget? _loadingIndicator;
 
 class OTS extends StatelessWidget {
-  final Widget child;
-  final Widget loader;
+  final Widget? child;
+  final Widget? loader;
   final bool showNetworkUpdates;
   final bool persistNoInternetNotification;
   final bool darkTheme;
+  final String? connectivityCheckAddress;
 
   const OTS(
-      {Key key,
-      this.child,
-      this.loader,
-      this.showNetworkUpdates = false,
-      this.persistNoInternetNotification = false,
-      this.darkTheme = false})
+      {
+        Key? key,
+        this.child,
+        this.loader,
+        this.showNetworkUpdates = false,
+        this.persistNoInternetNotification = false,
+        this.darkTheme = false,
+        this.connectivityCheckAddress
+      })
       : super(key: key);
 
   @override
@@ -65,7 +69,7 @@ class OTS extends StatelessWidget {
     isDarkTheme = darkTheme;
     _persistNoInternetToast = persistNoInternetNotification;
     if (showNetworkUpdates) {
-      _listenToNetworkChanges();
+      _listenToNetworkChanges(connectivityCheckAddress: connectivityCheckAddress);
     }
     return SizedBox(
       key: _tKey,
@@ -74,16 +78,16 @@ class OTS extends StatelessWidget {
   }
 }
 
-OverlayState get _overlayState {
+OverlayState? get _overlayState {
   final context = _tKey.currentContext;
   if (context == null) return null;
 
-  NavigatorState navigator;
+  NavigatorState? navigator;
   void visitor(Element element) {
     if (navigator != null) return;
 
     if (element.widget is Navigator) {
-      navigator = (element as StatefulElement).state;
+      navigator = (element as StatefulElement).state as NavigatorState?;
     } else {
       element.visitChildElements(visitor);
     }
@@ -93,18 +97,18 @@ OverlayState get _overlayState {
 
   assert(navigator != null,
       '''Cannot find OTS above the widget tree, unable to show overlay''');
-  return navigator.overlay;
+  return navigator!.overlay;
 }
 
 /// handling Internet Connectivity changes
-void _listenToNetworkChanges() async {
+void _listenToNetworkChanges({ String? connectivityCheckAddress }) async {
   Connectivity().onConnectivityChanged.listen((event) {
     switch (event) {
       case ConnectivityResult.wifi:
-        _checkInternetConnectionAndShowStatus();
+        _checkInternetConnectionAndShowStatus(connectivityCheckAddress: connectivityCheckAddress);
         break;
       case ConnectivityResult.mobile:
-        _checkInternetConnectionAndShowStatus();
+        _checkInternetConnectionAndShowStatus(connectivityCheckAddress: connectivityCheckAddress);
         break;
       case ConnectivityResult.none:
         _showNetworkStateWidget(NetworkState.Disconnected);
@@ -113,9 +117,9 @@ void _listenToNetworkChanges() async {
   });
 }
 
-_checkInternetConnectionAndShowStatus() async {
+_checkInternetConnectionAndShowStatus({ String? connectivityCheckAddress }) async {
   try {
-    final result = await InternetAddress.lookup('google.com');
+    final result = await InternetAddress.lookup(connectivityCheckAddress ?? 'google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       _showNetworkStateWidget(NetworkState.Connected);
     }
@@ -162,7 +166,7 @@ Future<void> _hideNetworkStateWidget() async {
 }
 
 /// To handle a loader for the application
-Future<void> showLoader({bool isModal = false, Color modalColor}) async {
+Future<void> showLoader({bool isModal = false, Color? modalColor, bool modalDismissible = true }) async {
   try {
     _printLog('''Showing loader as Overlay''');
     final _child = Center(
@@ -177,6 +181,7 @@ Future<void> showLoader({bool isModal = false, Color modalColor}) async {
               children: <Widget>[
                 ModalBarrier(
                   color: modalColor ?? _modalBarrierDefaultColor,
+                  dismissible: modalDismissible,
                 ),
                 _child
               ],
@@ -203,16 +208,16 @@ Future<void> hideLoader() async {
 
 /// This method can be used by the client to show a Notification as an overlay
 Future<void> showNotification(
-    {String title,
-    @required String message,
-    TextStyle messageStyle,
-    TextStyle titleStyle,
-    Color backgroundColor,
-    int notificationDuration,
-    int animDuration,
-    bool dismissOnTap,
-    VoidCallback onTap,
-    bool autoDismissible}) async {
+    {String? title,
+    required String message,
+    TextStyle? messageStyle,
+    TextStyle? titleStyle,
+    Color? backgroundColor,
+    int? notificationDuration,
+    int? animDuration,
+    bool? dismissOnTap,
+    VoidCallback? onTap,
+    bool? autoDismissible}) async {
   /// Throws an error if message is null
   assert(message != null, '''Notification message cannot be null''');
 
@@ -258,7 +263,7 @@ Future<void> hideNotification() async {
 Future<void> bakeToast(String message,
     {ToastType type = ToastType.normal}) async {
   try {
-    Widget _toast;
+    Widget? _toast;
     switch (type) {
       case ToastType.normal:
         _toast = DefaultToast(message: message, onToasted: _hideToast);
@@ -309,7 +314,7 @@ Future<void> _hideToast() async {
 
 ///----------------------------------------------------------------------------
 /// These methods deal with showing and hiding the overlay
-Future<void> _showOverlay({@required Widget child, _OverlayType type}) async {
+Future<void> _showOverlay({required Widget child, _OverlayType? type}) async {
   try {
     final overlay = _overlayState;
 
@@ -328,7 +333,7 @@ Future<void> _showOverlay({@required Widget child, _OverlayType type}) async {
       builder: (context) => child,
     );
 
-    overlay.insert(overlayEntry);
+    overlay!.insert(overlayEntry);
     type.setOverlayEntry(overlayEntry);
     type.setShowing();
   } catch (err) {
@@ -341,7 +346,7 @@ Future<void> _showOverlay({@required Widget child, _OverlayType type}) async {
 Future<void> _hideOverlay(_OverlayType type) async {
   try {
     if (type.isShowing()) {
-      type.getOverlayEntry().remove();
+      type.getOverlayEntry()!.remove();
       type.hide();
     } else {
       _printLog('No overlay is shown');
@@ -369,7 +374,7 @@ enum _OverlayType {
   Toast,
 }
 
-extension OverlayTypeExtension on _OverlayType {
+extension OverlayTypeExtension on _OverlayType? {
   String name() {
     switch (this) {
       case _OverlayType.Notification:
@@ -432,7 +437,7 @@ extension OverlayTypeExtension on _OverlayType {
     }
   }
 
-  OverlayEntry getOverlayEntry() {
+  OverlayEntry? getOverlayEntry() {
     switch (this) {
       case _OverlayType.Notification:
         return _notificationEntry;

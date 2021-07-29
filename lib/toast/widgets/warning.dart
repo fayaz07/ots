@@ -9,10 +9,10 @@ class WarningToast extends StatefulWidget {
   final TextStyle textStyle;
   final String message;
   final int duration;
-  final VoidCallback onToasted;
+  final VoidCallback? onToasted;
 
   const WarningToast(
-      {Key key,
+      {Key? key,
       this.backgroundColor = ToastColors.warningToastBGColor,
       this.textStyle = ToastTextStyle.defaultTextStyle,
       this.message = " ",
@@ -26,8 +26,8 @@ class WarningToast extends StatefulWidget {
 
 class _WarningToastState extends State<WarningToast>
     with SingleTickerProviderStateMixin {
-  Animation<double> _fadeAnimation;
-  AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
+  late AnimationController _fadeController;
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _WarningToastState extends State<WarningToast>
     _fadeController.forward();
     await Future.delayed(Duration(milliseconds: widget.duration));
     _fadeController.reverse();
-    if (widget.onToasted != null) widget.onToasted();
+    if (widget.onToasted != null) widget.onToasted!();
   }
 
   @override

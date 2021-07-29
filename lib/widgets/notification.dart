@@ -4,20 +4,20 @@ import 'package:flutter/widgets.dart';
 import 'package:ots/utils/styles.dart';
 
 class NotificationWidget extends StatefulWidget {
-  final int duration;
-  final int animDuration;
-  final bool autoDismissible;
-  final bool dismissOnTap;
-  final VoidCallback disposeOverlay;
-  final String title;
-  final String message;
-  final TextStyle messageStyle;
-  final TextStyle titleStyle;
-  final Color backgroundColor;
-  final VoidCallback onTap;
+  final int? duration;
+  final int? animDuration;
+  final bool? autoDismissible;
+  final bool? dismissOnTap;
+  final VoidCallback? disposeOverlay;
+  final String? title;
+  final String? message;
+  final TextStyle? messageStyle;
+  final TextStyle? titleStyle;
+  final Color? backgroundColor;
+  final VoidCallback? onTap;
 
   const NotificationWidget(
-      {Key key,
+      {Key? key,
       this.duration = 2000,
       this.autoDismissible = true,
       this.disposeOverlay,
@@ -37,8 +37,8 @@ class NotificationWidget extends StatefulWidget {
 
 class _NotificationWidgetState extends State<NotificationWidget>
     with SingleTickerProviderStateMixin {
-  Animation _animation;
-  AnimationController _animationController;
+  late Animation _animation;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _NotificationWidgetState extends State<NotificationWidget>
   }
 
   _reverse() async {
-    if (widget.autoDismissible) {
+    if (widget.autoDismissible!) {
       try {
         await Future.delayed(Duration(milliseconds: widget.duration ?? 2000));
         if (mounted) {
@@ -73,7 +73,7 @@ class _NotificationWidgetState extends State<NotificationWidget>
   }
 
   _callDispose() {
-    if (widget.disposeOverlay != null) widget.disposeOverlay();
+    if (widget.disposeOverlay != null) widget.disposeOverlay!();
   }
 
   @override
@@ -93,10 +93,10 @@ class _NotificationWidgetState extends State<NotificationWidget>
       child: GestureDetector(
         onTap: () {
           if (widget.onTap != null) {
-            widget.onTap();
+            widget.onTap!();
           }
 
-          if (widget.dismissOnTap) {
+          if (widget.dismissOnTap!) {
             _animationController.reverse().whenComplete(() => _callDispose());
           }
         },
@@ -117,12 +117,12 @@ class _NotificationWidgetState extends State<NotificationWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.title,
+                      widget.title!,
                       style: widget.titleStyle ?? TextStyles.titleStyle,
                     ),
                     SizedBox(height: 8.0),
                     Text(
-                      widget.message,
+                      widget.message!,
                       style: widget.messageStyle ?? TextStyles.bodyStyle,
                     ),
                   ],
