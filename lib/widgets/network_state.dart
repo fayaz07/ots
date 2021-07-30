@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:ots/utils/styles.dart';
 
 class NetworkWidget extends StatefulWidget {
-  final VoidCallback disposeOverlay;
-  final NetworkState state;
+  final VoidCallback? disposeOverlay;
+  final NetworkState? state;
   final bool persistNotification;
 
   const NetworkWidget(
-      {Key key,
+      {Key? key,
       this.disposeOverlay,
       this.state,
       this.persistNotification = false})
@@ -20,8 +20,8 @@ class NetworkWidget extends StatefulWidget {
 
 class _NetworkWidgetState extends State<NetworkWidget>
     with SingleTickerProviderStateMixin {
-  Animation _animation;
-  AnimationController _animationController;
+  late Animation _animation;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _NetworkWidgetState extends State<NetworkWidget>
   }
 
   _callDispose() {
-    if (widget.disposeOverlay != null) widget.disposeOverlay();
+    if (widget.disposeOverlay != null) widget.disposeOverlay!();
   }
 
   @override
@@ -91,34 +91,30 @@ class _NetworkWidgetState extends State<NetworkWidget>
 
 enum NetworkState { Connected, Disconnected, Weak }
 
-extension NetworkStateMessage on NetworkState {
+extension NetworkStateMessage on NetworkState? {
   String get message {
     switch (this) {
       case NetworkState.Connected:
         return "Connected to internet";
-        break;
       case NetworkState.Disconnected:
         return "No internet connection";
-        break;
       case NetworkState.Weak:
         return "Internet may not be available";
-        break;
+      default:
+        return "Unknown internet status";
     }
-    return "Unknown internet status";
   }
 
   Color get color {
     switch (this) {
       case NetworkState.Connected:
         return Colors.green;
-        break;
       case NetworkState.Disconnected:
         return Colors.red;
-        break;
       case NetworkState.Weak:
         return Colors.orange;
-        break;
+      default:
+        return Colors.orange;
     }
-    return Colors.orange;
   }
 }

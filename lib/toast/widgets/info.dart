@@ -9,10 +9,10 @@ class InfoToast extends StatefulWidget {
   final TextStyle textStyle;
   final String message;
   final int duration;
-  final VoidCallback onToasted;
+  final VoidCallback? onToasted;
 
   const InfoToast(
-      {Key key,
+      {Key? key,
       this.backgroundColor = ToastColors.infoToastBGColor,
       this.textStyle = ToastTextStyle.defaultTextStyle,
       this.message = " ",
@@ -26,8 +26,8 @@ class InfoToast extends StatefulWidget {
 
 class _InfoToastState extends State<InfoToast>
     with SingleTickerProviderStateMixin {
-  Animation<double> _fadeAnimation;
-  AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
+  late AnimationController _fadeController;
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _InfoToastState extends State<InfoToast>
     _fadeController.forward();
     await Future.delayed(Duration(milliseconds: widget.duration));
     _fadeController.reverse();
-    if (widget.onToasted != null) widget.onToasted();
+    if (widget.onToasted != null) widget.onToasted!();
   }
 
   @override
