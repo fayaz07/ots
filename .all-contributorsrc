@@ -36,6 +36,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "asterd",
+      "name": "Aster",
+      "avatar_url": "https://avatars.githubusercontent.com/u/734776?v=4",
+      "profile": "https://github.com/asterd",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
