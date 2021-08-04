@@ -1,6 +1,6 @@
 # ots
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 An widget that can show loaders, notifications, internet connectivity changes as `Overlay`.
@@ -124,6 +124,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/alexandradeas"><img src="https://avatars0.githubusercontent.com/u/12813479?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Deas</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=alexandradeas" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/pranathireddyk"><img src="https://avatars.githubusercontent.com/u/34978536?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pranathi Reddy</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=pranathireddyk" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/asterd"><img src="https://avatars.githubusercontent.com/u/734776?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aster</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=asterd" title="Code">💻</a></td>
+    <td align="center"><a href="https://lscbot.com"><img src="https://avatars.githubusercontent.com/u/88408208?v=4?s=100" width="100px;" alt=""/><br /><sub><b>lscbot</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=lscbot" title="Code">💻</a></td>
   </tr>
 </table>
 
