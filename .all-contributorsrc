@@ -45,6 +45,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "lscbot",
+      "name": "lscbot",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88408208?v=4",
+      "profile": "https://lscbot.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
