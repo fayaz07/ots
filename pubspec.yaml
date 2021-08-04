@@ -1,6 +1,6 @@
 name: ots
 description: A package for showing loading indicators, notifications, dialogs, internet connectivity updates, Over the Screen easily.
-version: 0.0.2
+version: 0.0.2+1
 author: Fayaz
 homepage: https://github.com/fayaz07/ots
 

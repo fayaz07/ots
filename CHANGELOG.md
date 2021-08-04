@@ -1,3 +1,6 @@
+## [0.0.2+1]
+- Migrated from the deprecated connectivity plugin to connectivity_plus.
+
 ## [0.0.2] .
 
 * Updated connectivity package version to ^3.0.3.
