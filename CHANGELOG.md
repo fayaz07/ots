@@ -1,3 +1,6 @@
+## [1.0.0]
+- Enhancements, bug fixes, added docs, screenshots.
+
 ## [0.0.2+1]
 - Migrated from the deprecated connectivity plugin to connectivity_plus.
 

@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ots/utils/styles.dart';
 
+NotificationWidgetState? _instance;
+
 class NotificationWidget extends StatefulWidget {
   final int? duration;
   final int? animDuration;
   final bool? autoDismissible;
-  final bool? dismissOnTap;
   final VoidCallback? disposeOverlay;
   final String? title;
   final String? message;
   final TextStyle? messageStyle;
   final TextStyle? titleStyle;
   final Color? backgroundColor;
-  final VoidCallback? onTap;
 
   const NotificationWidget(
       {Key? key,
@@ -26,19 +26,40 @@ class NotificationWidget extends StatefulWidget {
       this.titleStyle,
       this.backgroundColor = Colors.black,
       this.title = "Notification",
-      this.animDuration = 400,
-      this.onTap,
-      this.dismissOnTap = false})
+      this.animDuration = 400})
       : super(key: key);
 
+  NotificationWidgetState get() {
+    if (_instance == null) {
+      _instance = NotificationWidgetState();
+    }
+    return _instance!;
+  }
+
+  void close() {
+    get().close();
+  }
+
   @override
-  _NotificationWidgetState createState() => _NotificationWidgetState();
+  NotificationWidgetState createState() => get();
 }
 
-class _NotificationWidgetState extends State<NotificationWidget>
+class NotificationWidgetState extends State<NotificationWidget>
     with SingleTickerProviderStateMixin {
   late Animation _animation;
   late AnimationController _animationController;
+
+  void close() async {
+    try {
+      if (mounted) {
+        await _animationController.reverse();
+        _callDispose();
+      }
+    } catch (err) {
+      debugPrint('''NotificationWidget dispose error''');
+      throw err;
+    }
+  }
 
   @override
   void initState() {
@@ -80,6 +101,7 @@ class _NotificationWidgetState extends State<NotificationWidget>
   void dispose() {
     _animationController.dispose();
     super.dispose();
+    _instance = null;
   }
 
   @override
@@ -90,43 +112,32 @@ class _NotificationWidgetState extends State<NotificationWidget>
       onDismissed: (DismissDirection direction) => _callDispose(),
       direction: DismissDirection.horizontal,
       confirmDismiss: (d) => Future.value(true),
-      child: GestureDetector(
-        onTap: () {
-          if (widget.onTap != null) {
-            widget.onTap!();
-          }
-
-          if (widget.dismissOnTap!) {
-            _animationController.reverse().whenComplete(() => _callDispose());
-          }
-        },
-        child: AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) => Transform(
-            transform:
-                Matrix4.translationValues(0.0, _animation.value * height, 0.0),
-            child: Material(
-              elevation: 4.0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0)),
-              color: widget.backgroundColor,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      widget.title!,
-                      style: widget.titleStyle ?? TextStyles.titleStyle,
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      widget.message!,
-                      style: widget.messageStyle ?? TextStyles.bodyStyle,
-                    ),
-                  ],
-                ),
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) => Transform(
+          transform:
+              Matrix4.translationValues(0.0, _animation.value * height, 0.0),
+          child: Material(
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0)),
+            color: widget.backgroundColor,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.title!,
+                    style: widget.titleStyle ?? TextStyles.titleStyle,
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    widget.message!,
+                    style: widget.messageStyle ?? TextStyles.bodyStyle,
+                  ),
+                ],
               ),
             ),
           ),

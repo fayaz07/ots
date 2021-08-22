@@ -1,17 +1,28 @@
-# ots
+# over-the-screen
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-fayaz07-0e76a8)](https://www.linkedin.com/in/fayaz07) &nbsp; [![Fork](https://img.shields.io/github/forks/fayaz07/ots?style=social)](https://github.com/fayaz07/ots/fork) &nbsp; [![Star](https://img.shields.io/github/stars/fayaz07/ots?style=social)](https://github.com/fayaz07/ots/star) &nbsp; [![Watches](https://img.shields.io/github/watchers/fayaz07/ots?style=social)](https://github.com/fayaz07/ots/)
+
+[![Get the library](https://img.shields.io/badge/pub-v1.0.0-blue)](https://pub.dev/packages/ots) &nbsp; [![Example](https://img.shields.io/badge/example-code-success)](https://pub.dev/packages/ots#-example-tab-)
+
+<a href="https://www.buymeacoffee.com/fayaz" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-green.png" alt="Buy Me A Coffee" height="45px" width="180px" ></a> 
 
 An widget that can show loaders, notifications, internet connectivity changes as `Overlay`.
 
-[Example](example/lib/main.dart)
+### Screenshots
+
+<img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/1.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/2.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/3.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/4.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/5.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/6.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/7.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/8.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/9.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/10.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/11.png" width="30%"> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/12.png" width="30%">
 
 ### Demo
-<img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/internet.gif" height="30%" width="30%"  alt="Internet connectivity changes"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/loader.gif" height="30%" width="30%"  alt="Loader"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/notification.gif" height="30%" width="30%"  alt="Notification"/> 
+
+<img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/internet.gif" height="30%" width="30%"  alt="Internet connectivity changes"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/loader.gif" height="30%" width="30%"  alt="Loader"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/notification.gif" height="30%" width="30%"  alt="Notification"/>
 
 <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/default_toast.png" height="30%" width="30%"  alt="default_toast"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/error_toast.png" height="30%" width="30%"  alt="error_toast"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/info_toast.png" height="30%" width="30%"  alt="info_toast"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/success_toast.png" height="30%" width="30%"  alt="success_toast"/> <img src="https://raw.githubusercontent.com/fayaz07/ots/master/screenshots/warning_toast.png" height="30%" width="30%"  alt="warning_toast"/>
-
 
 ### Installation
 
@@ -27,6 +38,7 @@ dependencies:
 ```
 
 ### How to use
+
 ```dart
 void main() => runApp(
       MyApp(),
@@ -55,8 +67,8 @@ class MyApp extends StatelessWidget {
 
 By default, loader is set to [CircularProgressIndicator](https://api.flutter.dev/flutter/material/CircularProgressIndicator-class.html) for Android and [CupertinoActivityIndicator](https://api.flutter.dev/flutter/cupertino/CupertinoActivityIndicator-class.html) for iOS.
 
-
 #### Showing and hiding a loader
+
 ```dart
 showLoader(
   isModal: true,
@@ -68,6 +80,7 @@ hideLoader();
 > Note: `isModal` stops user from interacting with the screen
 
 #### Showing and hiding a notification
+
 ```dart
 showNotification(
   title: 'Test',
@@ -84,32 +97,36 @@ hideNotification();
 #### Showing toasts
 
 ##### Default toast
+
 ```
 bakeToast("Hey toast!");
 ```
 
 ##### Info toast
+
 ```
 bakeToast("Hey info!", type: ToastType.info);
 ```
 
 ##### Success toast
+
 ```
 bakeToast("Hey success!", type: ToastType.success);
 ```
 
 ##### Error toast
+
 ```
 bakeToast("Hey error!", type: ToastType.error);
 ```
 
 ##### Warning toast
+
 ```
 bakeToast("Hey warning!", type: ToastType.warning);
 ```
 
 > Note: Notifications are automatically dismissed after the specified duration if `autoDismissible` is set to true.
-
 
 ## Contributors ✨
 

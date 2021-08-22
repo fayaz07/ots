@@ -39,7 +39,7 @@ bool _networkShown = false;
 bool _toastShown = false;
 bool _persistNoInternetToast = false;
 
-bool _showDebugLogs = false;
+bool _showDebugLogs = true;
 
 Widget? _loadingIndicator;
 
@@ -50,17 +50,17 @@ class OTS extends StatelessWidget {
   final bool persistNoInternetNotification;
   final bool darkTheme;
   final String? connectivityCheckAddress;
+  final double bottomInternetNotificationPadding;
 
   const OTS(
-      {
-        Key? key,
-        this.child,
-        this.loader,
-        this.showNetworkUpdates = false,
-        this.persistNoInternetNotification = false,
-        this.darkTheme = false,
-        this.connectivityCheckAddress
-      })
+      {Key? key,
+      this.child,
+      this.loader,
+      this.showNetworkUpdates = false,
+      this.persistNoInternetNotification = false,
+      this.darkTheme = false,
+      this.connectivityCheckAddress,
+      this.bottomInternetNotificationPadding = 0.0})
       : super(key: key);
 
   @override
@@ -69,7 +69,8 @@ class OTS extends StatelessWidget {
     isDarkTheme = darkTheme;
     _persistNoInternetToast = persistNoInternetNotification;
     if (showNetworkUpdates) {
-      _listenToNetworkChanges(connectivityCheckAddress: connectivityCheckAddress);
+      _listenToNetworkChanges(bottomInternetNotificationPadding,
+          connectivityCheckAddress: connectivityCheckAddress);
     }
     return SizedBox(
       key: _tKey,
@@ -101,37 +102,43 @@ OverlayState? get _overlayState {
 }
 
 /// handling Internet Connectivity changes
-void _listenToNetworkChanges({ String? connectivityCheckAddress }) async {
+void _listenToNetworkChanges(bottomPadding,
+    {String? connectivityCheckAddress}) async {
   Connectivity().onConnectivityChanged.listen((event) {
     switch (event) {
       case ConnectivityResult.wifi:
-        _checkInternetConnectionAndShowStatus(connectivityCheckAddress: connectivityCheckAddress);
+        _checkInternetConnectionAndShowStatus(bottomPadding,
+            connectivityCheckAddress: connectivityCheckAddress);
         break;
       case ConnectivityResult.mobile:
-        _checkInternetConnectionAndShowStatus(connectivityCheckAddress: connectivityCheckAddress);
+        _checkInternetConnectionAndShowStatus(bottomPadding,
+            connectivityCheckAddress: connectivityCheckAddress);
         break;
       case ConnectivityResult.none:
-        _showNetworkStateWidget(NetworkState.Disconnected);
+        _showNetworkStateWidget(NetworkState.Disconnected, bottomPadding);
         break;
     }
   });
 }
 
-_checkInternetConnectionAndShowStatus({ String? connectivityCheckAddress }) async {
+_checkInternetConnectionAndShowStatus(double bottomPadding,
+    {String? connectivityCheckAddress}) async {
   try {
-    final result = await InternetAddress.lookup(connectivityCheckAddress ?? 'google.com');
+    final result =
+        await InternetAddress.lookup(connectivityCheckAddress ?? 'google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      _showNetworkStateWidget(NetworkState.Connected);
+      _showNetworkStateWidget(NetworkState.Connected, bottomPadding);
     }
   } on SocketException catch (_) {
-    _showNetworkStateWidget(NetworkState.Weak);
+    _showNetworkStateWidget(NetworkState.Weak, bottomPadding);
   }
 }
 
-Future<void> _showNetworkStateWidget(NetworkState state) async {
+Future<void> _showNetworkStateWidget(
+    NetworkState state, double bottomPadding) async {
   try {
     final child = Positioned(
-      bottom: 0.0,
+      bottom: bottomPadding,
       left: 0.0,
       right: 0.0,
       height: 30.0,
@@ -141,8 +148,11 @@ Future<void> _showNetworkStateWidget(NetworkState state) async {
         persistNotification: _persistNoInternetToast,
       ),
     );
-
+    _printLog("Network change: " + state.message);
     if (_OverlayType.NetworkStatus.isShowing()) {
+      _printLog(
+          "An internet overlay is being currently shown, "
+              "hiding it before showing new overlay");
       await _hideNetworkStateWidget();
     }
 
@@ -166,7 +176,10 @@ Future<void> _hideNetworkStateWidget() async {
 }
 
 /// To handle a loader for the application
-Future<void> showLoader({bool isModal = false, Color? modalColor, bool modalDismissible = true }) async {
+Future<void> showLoader(
+    {bool isModal = false,
+    Color? modalColor,
+    bool modalDismissible = true}) async {
   try {
     _printLog('''Showing loader as Overlay''');
     final _child = Center(
@@ -207,7 +220,7 @@ Future<void> hideLoader() async {
 }
 
 /// This method can be used by the client to show a Notification as an overlay
-Future<void> showNotification(
+Future<NotificationWidgetState> showNotification(
     {String? title,
     required String message,
     TextStyle? messageStyle,
@@ -215,34 +228,33 @@ Future<void> showNotification(
     Color? backgroundColor,
     int? notificationDuration,
     int? animDuration,
-    bool? dismissOnTap,
-    VoidCallback? onTap,
     bool? autoDismissible}) async {
   /// Throws an error if message is null
   assert(message != null, '''Notification message cannot be null''');
 
   try {
+    final instance = NotificationWidget(
+      disposeOverlay: hideNotification,
+      backgroundColor: backgroundColor,
+      message: message,
+      title: title,
+      messageStyle: messageStyle,
+      titleStyle: titleStyle,
+      autoDismissible: autoDismissible,
+      duration: notificationDuration,
+      animDuration: animDuration,
+    );
+
     final child = Positioned(
       left: 8.0,
       right: 8.0,
-      child: NotificationWidget(
-        disposeOverlay: hideNotification,
-        backgroundColor: backgroundColor,
-        message: message,
-        title: title,
-        messageStyle: messageStyle,
-        titleStyle: titleStyle,
-        autoDismissible: autoDismissible,
-        duration: notificationDuration,
-        onTap: onTap,
-        dismissOnTap: dismissOnTap,
-        animDuration: animDuration,
-      ),
+      child: instance,
     );
 
     _printLog('''Showing Notification overlay''');
 
     await _showOverlay(child: child, type: _OverlayType.Notification);
+    return instance.get();
   } catch (err) {
     _printError('''Caught an exception while trying to show Notification''');
     throw err;

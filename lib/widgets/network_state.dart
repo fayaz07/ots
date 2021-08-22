@@ -79,8 +79,8 @@ class _NetworkWidgetState extends State<NetworkWidget>
           color: widget.state.color,
           child: Center(
             child: Text(
-              widget.state.message,
-              style: TextStyles.networkStatusStyle,
+                widget.state.message,
+                style: TextStyles.networkStatusStyle,
             ),
           ),
         ),
