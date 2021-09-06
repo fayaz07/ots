@@ -6,6 +6,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ots/toast/colors.dart';
+import 'package:ots/toast/text_styles.dart';
 import 'package:ots/toast/types.dart';
 import 'package:ots/toast/widgets/error.dart';
 import 'package:ots/toast/widgets/info.dart';
@@ -150,9 +152,8 @@ Future<void> _showNetworkStateWidget(
     );
     _printLog("Network change: " + state.message);
     if (_OverlayType.NetworkStatus.isShowing()) {
-      _printLog(
-          "An internet overlay is being currently shown, "
-              "hiding it before showing new overlay");
+      _printLog("An internet overlay is being currently shown, "
+          "hiding it before showing new overlay");
       await _hideNetworkStateWidget();
     }
 
@@ -273,24 +274,46 @@ Future<void> hideNotification() async {
 
 ///----------------------------------Toasts------------------------------------
 Future<void> bakeToast(String message,
-    {ToastType type = ToastType.normal}) async {
+    {Color? backgroundColor,
+    TextStyle? textStyle,
+    ToastType type = ToastType.normal}) async {
   try {
     Widget? _toast;
     switch (type) {
       case ToastType.normal:
-        _toast = DefaultToast(message: message, onToasted: _hideToast);
+        _toast = DefaultToast(
+            backgroundColor: backgroundColor ?? ToastColors.defaultToastBGColor,
+            textStyle: textStyle ?? ToastTextStyle.defaultTextStyle,
+            message: message,
+            onToasted: _hideToast);
         break;
       case ToastType.info:
-        _toast = InfoToast(message: message, onToasted: _hideToast);
+        _toast = InfoToast(
+            backgroundColor: backgroundColor ?? ToastColors.infoToastBGColor,
+            textStyle: textStyle ?? ToastTextStyle.defaultTextStyle,
+            message: message,
+            onToasted: _hideToast);
         break;
       case ToastType.success:
-        _toast = SuccessToast(message: message, onToasted: _hideToast);
+        _toast = SuccessToast(
+            backgroundColor: backgroundColor ?? ToastColors.successToastBGColor,
+            textStyle: textStyle ?? ToastTextStyle.defaultTextStyle,
+            message: message,
+            onToasted: _hideToast);
         break;
       case ToastType.error:
-        _toast = ErrorToast(message: message, onToasted: _hideToast);
+        _toast = ErrorToast(
+            backgroundColor: backgroundColor ?? ToastColors.errorToastBGColor,
+            textStyle: textStyle ?? ToastTextStyle.defaultTextStyle,
+            message: message,
+            onToasted: _hideToast);
         break;
       case ToastType.warning:
-        _toast = WarningToast(message: message, onToasted: _hideToast);
+        _toast = WarningToast(
+            backgroundColor: backgroundColor ?? ToastColors.warningToastBGColor,
+            textStyle: textStyle ?? ToastTextStyle.defaultTextStyle,
+            message: message,
+            onToasted: _hideToast);
         break;
     }
 

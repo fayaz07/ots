@@ -5,8 +5,8 @@ import 'package:ots/toast/length.dart';
 import 'package:ots/toast/text_styles.dart';
 
 class DefaultToast extends StatefulWidget {
-  final Color backgroundColor;
-  final TextStyle textStyle;
+  final Color? backgroundColor;
+  final TextStyle? textStyle;
   final String message;
   final int duration;
   final VoidCallback? onToasted;
@@ -38,6 +38,10 @@ class _DefaultToastState extends State<DefaultToast>
         curve: Curves.easeInCirc,
         reverseCurve: Curves.easeOutCirc,
         parent: _fadeController));
+
+    if (widget.backgroundColor == null) {
+      print("No background passed so use default color");
+    }
 
     _initAnimation();
   }
