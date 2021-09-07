@@ -74,10 +74,12 @@ class _InfoToastState extends State<InfoToast>
                 color: Colors.white,
               ),
               SizedBox(width: 8.0),
-              Text(
-                widget.message,
-                textAlign: TextAlign.center,
-                style: widget.textStyle,
+              Flexible(
+                child: Text(
+                  widget.message,
+                  textAlign: TextAlign.center,
+                  style: widget.textStyle,
+                ),
               ),
             ],
           ),
