@@ -1,9 +1,7 @@
 # over-the-screen
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-fayaz07-0e76a8)](https://www.linkedin.com/in/fayaz07) &nbsp; [![Fork](https://img.shields.io/github/forks/fayaz07/ots?style=social)](https://github.com/fayaz07/ots/fork) &nbsp; [![Star](https://img.shields.io/github/stars/fayaz07/ots?style=social)](https://github.com/fayaz07/ots/star) &nbsp; [![Watches](https://img.shields.io/github/watchers/fayaz07/ots?style=social)](https://github.com/fayaz07/ots/)
@@ -142,6 +140,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/pranathireddyk"><img src="https://avatars.githubusercontent.com/u/34978536?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pranathi Reddy</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=pranathireddyk" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/asterd"><img src="https://avatars.githubusercontent.com/u/734776?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aster</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=asterd" title="Code">💻</a></td>
     <td align="center"><a href="https://lscbot.com"><img src="https://avatars.githubusercontent.com/u/88408208?v=4?s=100" width="100px;" alt=""/><br /><sub><b>lscbot</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=lscbot" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/toniremi"><img src="https://avatars.githubusercontent.com/u/1259874?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Antoni Remeseiro Alfonso</b></sub></a><br /><a href="https://github.com/fayaz07/ots/commits?author=toniremi" title="Code">💻</a></td>
   </tr>
 </table>
 
