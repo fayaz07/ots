@@ -420,8 +420,9 @@ extension OverlayTypeExtension on _OverlayType? {
         return "NetworkStatus";
       case _OverlayType.Toast:
         return "Toast";
+      default:
+        return "Overlay";
     }
-    return "Overlay";
   }
 
   bool isShowing() {
@@ -434,8 +435,9 @@ extension OverlayTypeExtension on _OverlayType? {
         return _networkShown;
       case _OverlayType.Toast:
         return _toastShown;
+      default:
+        return false;
     }
-    return false;
   }
 
   void setShowing() {
@@ -451,6 +453,8 @@ extension OverlayTypeExtension on _OverlayType? {
         break;
       case _OverlayType.Toast:
         _toastShown = true;
+        break;
+      default:
         break;
     }
   }
@@ -469,6 +473,8 @@ extension OverlayTypeExtension on _OverlayType? {
       case _OverlayType.Toast:
         _toastShown = false;
         break;
+      default:
+        break;
     }
   }
 
@@ -482,8 +488,9 @@ extension OverlayTypeExtension on _OverlayType? {
         return _networkStatusEntry;
       case _OverlayType.Toast:
         return _toastEntry;
+      default:
+        return null;
     }
-    return null;
   }
 
   void setOverlayEntry(OverlayEntry entry) {
@@ -499,6 +506,8 @@ extension OverlayTypeExtension on _OverlayType? {
         break;
       case _OverlayType.Toast:
         _toastEntry = entry;
+        break;
+      default:
         break;
     }
   }

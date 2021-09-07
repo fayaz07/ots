@@ -39,10 +39,6 @@ class _DefaultToastState extends State<DefaultToast>
         reverseCurve: Curves.easeOutCirc,
         parent: _fadeController));
 
-    if (widget.backgroundColor == null) {
-      print("No background passed so use default color");
-    }
-
     _initAnimation();
   }
 
