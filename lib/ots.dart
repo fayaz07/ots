@@ -231,7 +231,7 @@ Future<NotificationWidgetState> showNotification(
     int? animDuration,
     bool? autoDismissible}) async {
   /// Throws an error if message is null
-  assert(message != null, '''Notification message cannot be null''');
+  // assert(message != null, '''Notification message cannot be null''');
 
   try {
     final instance = NotificationWidget(
