@@ -74,10 +74,12 @@ class _SuccessToastState extends State<SuccessToast>
                 color: Colors.white,
               ),
               SizedBox(width: 8.0),
-              Text(
-                widget.message,
-                textAlign: TextAlign.center,
-                style: widget.textStyle,
+              Flexible(
+                child: Text(
+                  widget.message,
+                  textAlign: TextAlign.center,
+                  style: widget.textStyle,
+                ),
               ),
             ],
           ),
