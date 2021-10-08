@@ -126,6 +126,56 @@ bakeToast("Hey warning!", type: ToastType.warning);
 
 > Note: Notifications are automatically dismissed after the specified duration if `autoDismissible` is set to true.
 
+
+#### Customize network updates messages and colors
+
+You can customize text and color of network update messages to support multi-language applications.
+To do that, you must create a new class that extends `NetworkStateMessenger`
+
+```
+class CustomNetworkStateMessage extends NetworkStateMessenger {
+  @override
+  String message(NetworkState? networkState) {
+    switch (networkState) {
+      case NetworkState.Connected:
+        return '#YOUR_CONNECTED_CUSTOM_MESSAGE#';
+      case NetworkState.Disconnected:
+        return '#YOUR_DISCONNECTED_CUSTOM_MESSAGE#';
+      case NetworkState.Weak:
+        return '#YOUR_WEAK_CUSTOM_MESSAGE#';
+      case null:
+    }
+    return '#YOUR_UNKNOWN_CUSTOM_MESSAGE#';
+  }
+
+  @override
+  Color color(NetworkState? networkState) {
+    switch (networkState) {
+      case NetworkState.Connected:
+        return Colors.lightGreen;
+      case NetworkState.Disconnected:
+        return Colors.red;
+      case NetworkState.Weak:
+        return Colors.yellow;
+      case null:
+    }
+    return Colors.orange;
+  }
+}
+```
+
+and then configure this custom messenger in the OTS constructor
+
+```
+return OTS(
+  ...
+  showNetworkUpdates: true,
+  persistNoInternetNotification: true,
+  networkStateMessenger: CustomNetworkStateMessage(),
+  ...
+)
+```
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

@@ -20,8 +20,7 @@ class NetworkWidget extends StatefulWidget {
   _NetworkWidgetState createState() => _NetworkWidgetState();
 }
 
-class _NetworkWidgetState extends State<NetworkWidget>
-    with SingleTickerProviderStateMixin {
+class _NetworkWidgetState extends State<NetworkWidget> with SingleTickerProviderStateMixin {
   late Animation _animation;
   late AnimationController _animationController;
 
@@ -42,8 +41,7 @@ class _NetworkWidgetState extends State<NetworkWidget>
   }
 
   _reverse() async {
-    if (widget.state == NetworkState.Disconnected &&
-        widget.persistNotification) {
+    if (widget.state == NetworkState.Disconnected && widget.persistNotification) {
       debugPrint('Persisting NoInternet NetworkStatusWidget');
     } else {
       try {
