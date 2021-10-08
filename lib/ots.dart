@@ -42,6 +42,7 @@ bool _toastShown = false;
 bool _persistNoInternetToast = false;
 
 bool _showDebugLogs = true;
+bool _isFirstNetworkConnectionTrack = true;
 
 Widget? _loadingIndicator;
 
@@ -50,20 +51,22 @@ class OTS extends StatelessWidget {
   final Widget? loader;
   final bool showNetworkUpdates;
   final bool persistNoInternetNotification;
+  final NetworkStateMessenger? networkStateMessenger;
   final bool darkTheme;
   final String? connectivityCheckAddress;
   final double bottomInternetNotificationPadding;
 
-  const OTS(
-      {Key? key,
-      this.child,
-      this.loader,
-      this.showNetworkUpdates = false,
-      this.persistNoInternetNotification = false,
-      this.darkTheme = false,
-      this.connectivityCheckAddress,
-      this.bottomInternetNotificationPadding = 0.0})
-      : super(key: key);
+  const OTS({
+    Key? key,
+    this.child,
+    this.loader,
+    this.showNetworkUpdates = false,
+    this.persistNoInternetNotification = false,
+    this.darkTheme = false,
+    this.connectivityCheckAddress,
+    this.networkStateMessenger,
+    this.bottomInternetNotificationPadding = 0.0
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +75,7 @@ class OTS extends StatelessWidget {
     _persistNoInternetToast = persistNoInternetNotification;
     if (showNetworkUpdates) {
       _listenToNetworkChanges(bottomInternetNotificationPadding,
+          messenger: networkStateMessenger,
           connectivityCheckAddress: connectivityCheckAddress);
     }
     return SizedBox(
@@ -104,41 +108,52 @@ OverlayState? get _overlayState {
 }
 
 /// handling Internet Connectivity changes
-void _listenToNetworkChanges(bottomPadding,
-    {String? connectivityCheckAddress}) async {
+void _listenToNetworkChanges(bottomPadding, {String? connectivityCheckAddress, NetworkStateMessenger? messenger}) async {
   Connectivity().onConnectivityChanged.listen((event) {
     switch (event) {
       case ConnectivityResult.wifi:
         _checkInternetConnectionAndShowStatus(bottomPadding,
-            connectivityCheckAddress: connectivityCheckAddress);
+            connectivityCheckAddress: connectivityCheckAddress,
+            messenger: messenger
+        );
         break;
       case ConnectivityResult.mobile:
         _checkInternetConnectionAndShowStatus(bottomPadding,
-            connectivityCheckAddress: connectivityCheckAddress);
+            connectivityCheckAddress: connectivityCheckAddress,
+            messenger: messenger
+        );
         break;
       case ConnectivityResult.none:
-        _showNetworkStateWidget(NetworkState.Disconnected, bottomPadding);
+        _showNetworkStateWidget(NetworkState.Disconnected, messenger, bottomPadding);
         break;
     }
   });
 }
 
 _checkInternetConnectionAndShowStatus(double bottomPadding,
-    {String? connectivityCheckAddress}) async {
+    {String? connectivityCheckAddress, NetworkStateMessenger? messenger}) async {
   try {
-    final result =
-        await InternetAddress.lookup(connectivityCheckAddress ?? 'google.com');
+    final result = await InternetAddress.lookup(connectivityCheckAddress ?? 'google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      _showNetworkStateWidget(NetworkState.Connected, bottomPadding);
+      _showNetworkStateWidget(NetworkState.Connected, messenger, bottomPadding);
     }
   } on SocketException catch (_) {
-    _showNetworkStateWidget(NetworkState.Weak, bottomPadding);
+    _showNetworkStateWidget(NetworkState.Weak, messenger, bottomPadding);
   }
 }
 
-Future<void> _showNetworkStateWidget(
-    NetworkState state, double bottomPadding) async {
+Future<void> _showNetworkStateWidget(NetworkState state, NetworkStateMessenger? messenger, double bottomPadding) async {
   try {
+    // prevent the showing of "connected message" when you access an
+    // already connected network.
+    if (_isFirstNetworkConnectionTrack) {
+      _isFirstNetworkConnectionTrack = false;
+      if (state == NetworkState.Connected) {
+        return;
+      }
+    }
+
+    // display the message
     final child = Positioned(
       bottom: bottomPadding,
       left: 0.0,
@@ -147,10 +162,11 @@ Future<void> _showNetworkStateWidget(
       child: NetworkWidget(
         disposeOverlay: _hideNetworkStateWidget,
         state: state,
+        messenger: messenger ?? NetworkStateDefaultMessage(),
         persistNotification: _persistNoInternetToast,
       ),
     );
-    _printLog("Network change: " + state.message);
+    _printLog("Network change: " + (messenger ?? NetworkStateDefaultMessage()).message(state));
     if (_OverlayType.NetworkStatus.isShowing()) {
       _printLog("An internet overlay is being currently shown, "
           "hiding it before showing new overlay");
