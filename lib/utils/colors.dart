@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class LibColors {
   static final iosDialogColor = CupertinoDynamicColor.withBrightness(

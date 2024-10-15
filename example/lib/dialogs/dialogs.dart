@@ -7,15 +7,15 @@ const Duration _dialogDuration = Duration(milliseconds: 100);
 const Curve _animCurve = Curves.linear;
 
 class AnimatedAboutDialog extends StatefulWidget {
-  final Widget title, content;
-  final List<Widget> actions;
-  final ScrollController actionScrollController, scrollController;
-  final Curve insetAnimationCurve;
-  final Duration insetAnimationDuration;
-  final VoidCallback dismiss;
+  final Widget? title, content;
+  final List<Widget>? actions;
+  final ScrollController? actionScrollController, scrollController;
+  final Curve? insetAnimationCurve;
+  final Duration? insetAnimationDuration;
+  final VoidCallback? dismiss;
 
   const AnimatedAboutDialog({
-    Key key,
+    super.key,
     this.title,
     this.content,
     this.actions,
@@ -24,7 +24,7 @@ class AnimatedAboutDialog extends StatefulWidget {
     this.insetAnimationCurve,
     this.insetAnimationDuration,
     this.dismiss,
-  }) : super(key: key);
+  });
 
   @override
   _AnimatedAboutDialogState createState() => _AnimatedAboutDialogState();
@@ -32,8 +32,8 @@ class AnimatedAboutDialog extends StatefulWidget {
 
 class _AnimatedAboutDialogState extends State<AnimatedAboutDialog>
     with SingleTickerProviderStateMixin {
-  Animation<double> _scale;
-  AnimationController _controller;
+  late Animation<double> _scale;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -71,10 +71,10 @@ class _AnimatedAboutDialogState extends State<AnimatedAboutDialog>
           key: UniqueKey(),
           title: widget.title,
           content: widget.content,
-          actions: widget.actions,
+          actions: widget.actions ?? [],
           actionScrollController: widget.actionScrollController,
-          insetAnimationCurve: widget.insetAnimationCurve,
-          insetAnimationDuration: widget.insetAnimationDuration,
+          insetAnimationCurve: widget.insetAnimationCurve ?? _animCurve,
+          insetAnimationDuration: widget.insetAnimationDuration ?? _dialogDuration,
           scrollController: widget.scrollController,
         );
 //      case "linux":

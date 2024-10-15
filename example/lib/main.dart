@@ -40,7 +40,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  NotificationWidgetState instance;
+  NotificationWidgetState? instance;
 
   Widget notifications(){
     return Wrap(
@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Success', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green)
+              backgroundColor: WidgetStateProperty.all(Colors.green)
           ),
           onPressed: () {
             showNotification(
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Error', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.red)
+              backgroundColor: WidgetStateProperty.all(Colors.red)
           ),
           onPressed: () {
             showNotification(
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Warning', style: textStyle),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.orange)
+            backgroundColor: WidgetStateProperty.all(Colors.orange)
           ),
           onPressed: () {
             showNotification(
@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Info', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blue)
+              backgroundColor: WidgetStateProperty.all(Colors.blue)
           ),
           onPressed: () {
             showNotification(
@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
             );
             await Future.delayed(Duration(seconds: 3));
             print("Closing notification now");
-            instance.close();
+            instance?.close();
           },
         ),
       ],
@@ -188,7 +188,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Info', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blue)
+              backgroundColor: WidgetStateProperty.all(Colors.blue)
           ),
           onPressed: () async {
             bakeToast("This is informational!", type: ToastType.info);
@@ -198,7 +198,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Normal', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.lightBlue)
+              backgroundColor: WidgetStateProperty.all(Colors.lightBlue)
           ),
           onPressed: () async {
             bakeToast("Downloading, please wait!", type: ToastType.normal);
@@ -208,7 +208,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Error', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.red)
+              backgroundColor: WidgetStateProperty.all(Colors.red)
           ),
           onPressed: () async {
             bakeToast("Password is incorrect!", type: ToastType.error);
@@ -218,7 +218,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Warning', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.orange)
+              backgroundColor: WidgetStateProperty.all(Colors.orange)
           ),
           onPressed: () async {
             bakeToast("Password is weak!", type: ToastType.warning);
@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
         ElevatedButton(
           child: Text('Success', style: textStyle),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green)
+              backgroundColor: WidgetStateProperty.all(Colors.green)
           ),
           onPressed: () async {
             bakeToast("Registration successful!", type: ToastType.success);
