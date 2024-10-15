@@ -5,7 +5,6 @@ import 'dart:io' show InternetAddress, Platform, SocketException;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ots/toast/colors.dart';
 import 'package:ots/toast/text_styles.dart';
 import 'package:ots/toast/types.dart';
@@ -110,7 +109,20 @@ OverlayState? get _overlayState {
 /// handling Internet Connectivity changes
 void _listenToNetworkChanges(bottomPadding, {String? connectivityCheckAddress, NetworkStateMessenger? messenger}) async {
   Connectivity().onConnectivityChanged.listen((event) {
-    switch (event) {
+    if (event.contains(ConnectivityResult.wifi)) {
+      _checkInternetConnectionAndShowStatus(bottomPadding,
+            connectivityCheckAddress: connectivityCheckAddress,
+            messenger: messenger
+        );
+    } else if (event.contains(ConnectivityResult.mobile)) {
+      _checkInternetConnectionAndShowStatus(bottomPadding,
+            connectivityCheckAddress: connectivityCheckAddress,
+            messenger: messenger
+        );
+    } else if (event.contains(ConnectivityResult.none)) {
+      _showNetworkStateWidget(NetworkState.Disconnected, messenger, bottomPadding);
+    }
+    /* switch (event) {
       case ConnectivityResult.wifi:
         _checkInternetConnectionAndShowStatus(bottomPadding,
             connectivityCheckAddress: connectivityCheckAddress,
@@ -126,7 +138,7 @@ void _listenToNetworkChanges(bottomPadding, {String? connectivityCheckAddress, N
       case ConnectivityResult.none:
         _showNetworkStateWidget(NetworkState.Disconnected, messenger, bottomPadding);
         break;
-    }
+    } */
   });
 }
 
